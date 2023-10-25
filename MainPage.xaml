@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diskretka_7.MainPage">
+
+    <StackLayout Margin="30">
+        <Grid RowSpacing="20" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="210"/>
+                <RowDefinition Height="550"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Ввод весов вершин-->
+            <Frame Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="2" IsVisible="true">
+                <VerticalStackLayout VerticalOptions="Center" Spacing="20">
+                    <Label Text="Введите вес вершин" FontSize="25" HorizontalOptions="Center"/>
+
+                    <Grid ColumnSpacing="30" HorizontalOptions="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid Grid.Column="0" ColumnSpacing="20" RowSpacing="20" HorizontalOptions="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!--Ячейка для вывода номеров вершин-->
+                            <Label Grid.Row="0" Grid.Column="0" Text="Номер" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <HorizontalStackLayout x:Name="weightsLabels" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" Spacing="42">
+                            </HorizontalStackLayout>
+
+                            <!--Ячейка для ввода весов вершин-->
+                            <Label Grid.Row="1" Grid.Column="0" Text="Вес" VerticalOptions="Center" HorizontalOptions="Center"/>
+                            <HorizontalStackLayout x:Name="weightsEntries" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Spacing="10">
+                            </HorizontalStackLayout>
+                        </Grid>
+
+                        <Button Grid.Column="1" Clicked="setWeights" Text="Подтвердить" HorizontalOptions="CenterAndExpand"/>
+                    </Grid>
+
+
+                </VerticalStackLayout>
+            </Frame>
+
+
+            <!--Добавление дуг-->
+            <Frame Grid.Column="0" Grid.Row="1">
+                <VerticalStackLayout Spacing="20" >
+                    <Label Text="Добавить дуги" HorizontalOptions="Center" FontSize="25"/>
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center">
+                        <Entry x:Name="from" Placeholder="от" VerticalOptions="Center" MaxLength="2" Focused="onFocus"/>
+
+                        <Label Text="➡" VerticalOptions="Center"/>
+                        <Entry x:Name="to" Placeholder="до" VerticalOptions="Center" MaxLength="2" Focused="onFocus"/>
+                    </HorizontalStackLayout>
+                    <Button x:Name="edgeAddButton" Clicked="addEdge" Text="Добавить"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!--Вывод дуг на экран-->
+            <Frame Grid.Column="0" Grid.Row="2">
+                <ListView x:Name="dugiList" ItemsSource="{Binding dugi}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding .}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+
+            <!--Контроль вывода на экран-->
+            <Frame Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+                <StackLayout Spacing="20" Margin="30">
+                    <Grid ColumnSpacing="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="sortButton" Grid.Column="0" Text="Шаг сортировки" Clicked="onSortClicked" IsVisible="false"/>
+                        <Button x:Name="resetButton" Grid.Column="1" Text="Сбросить" Clicked="outputReset" IsVisible="false"/>
+                    </Grid>
+
+
+                    <VerticalStackLayout Spacing="5">
+                        <Grid x:Name="resultHeader" ColumnSpacing="10" IsVisible="false">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="N" HorizontalOptions="Center"/>
+                            <Label Grid.Column="1" Text="Вес" HorizontalOptions="Center"/>
+                            <Label Grid.Column="2" Text="Количество выходов" HorizontalOptions="Center"/>
+                        </Grid>
+
+                        <Grid x:Name="resultGrid" HorizontalOptions="StartAndExpand" ColumnSpacing="10">
+
+                        </Grid>
+                    </VerticalStackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!--Вывод порядка выполнения работ-->
+            <Frame x:Name="queueFrame" Grid.Row="3" Grid.ColumnSpan="2" IsVisible="false">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="➡️ ➡️ Порядок выполнения работ ➡️ ➡️" HorizontalOptions="Center" FontAttributes="Bold"/>
+                    <Grid x:Name="queueGrid" HorizontalOptions="Center">
+                    </Grid>
+                </VerticalStackLayout>
+            </Frame>
+
+        </Grid>
+    </StackLayout>
+</ContentPage>
