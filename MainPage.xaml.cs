@@ -108,19 +108,26 @@ public partial class MainPage : ContentPage
             resultGrid.AddColumnDefinition(new ColumnDefinition() { Width = 50 });
             resultGrid.AddColumnDefinition(new ColumnDefinition() { Width = 50 });
             resultGrid.AddColumnDefinition(new ColumnDefinition() { Width = 50 });
-            
+
+            for (int i = 0; i < N; i++)
+            {
+                nOut[i] = 0;
+            }
+
+            foreach ((int, int) duga in dugi)
+            {
+                nOut[duga.Item1]++;
+            }
+
+
             for (int i = 0; i < N; i++)
             {
                 resultGrid.Add(new Frame { BackgroundColor = valid, HeightRequest = 40, Padding = 0, Margin = 0, Content = new Label { Margin = 0, Padding = 0, Text = (i).ToString(), HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center } }, 0, i);
                 resultGrid.Add(new Frame { BackgroundColor = valid, HeightRequest = 40, Padding = 0, Margin = 0, Content = new Label { Margin = 0, Padding = 0, Text = weights[i].ToString(), HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center } }, 1, i);
                 resultGrid.Add(new Frame { BackgroundColor = valid, HeightRequest = 40, Padding = 0, Margin = 0, Content = new Label { Margin = 0, Padding = 0, Text = nOut[i].ToString(), HorizontalOptions = LayoutOptions.Center, VerticalOptions = LayoutOptions.Center } }, 2, i);
-                nOut[i] = 0;
             }
 
-            foreach((int, int) duga in dugi)
-            {
-                nOut[duga.Item1]++;
-            }
+
         }
         else
         {
